@@ -5,14 +5,14 @@ class EditorData
 	angleGridStep=1.5707964;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=1;
+	toggles=513;
 	mods[]=
 	{
 		"3denEnhanced"
 	};
 	class ItemIDProvider
 	{
-		nextID=5318;
+		nextID=5362;
 	};
 	class MarkerIDProvider
 	{
@@ -20,18 +20,18 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=52;
+		nextID=55;
 	};
 	class Camera
 	{
-		pos[]={11967.155,79.866669,2337.4324};
-		dir[]={-0.18953291,-0.54374897,0.81757438};
-		up[]={-0.12279738,0.83924538,0.52970302};
-		aside[]={0.9741714,8.1432518e-08,0.22583565};
+		pos[]={11952.03,50.054871,2373.4092};
+		dir[]={-0.24962243,-0.51752675,-0.81845903};
+		up[]={-0.15097673,0.85566574,-0.49501759};
+		aside[]={-0.95650923,4.7730282e-08,0.2917273};
 	};
 };
 binarizationWanted=0;
-sourceName="Filler_Mission_RHS_3CB";
+sourceName="Filler_Mission_RHS3CB";
 addons[]=
 {
 	"A3_Structures_F_Tank_Decals_Horizontal",
@@ -136,6 +136,8 @@ addons[]=
 	"ace_parachute",
 	"ace_medical_vitals",
 	"ace_hearing",
+	"A3_Supplies_F_Heli_Fuel",
+	"ace_rearm",
 	"A3_Structures_F_Bootcamp_Items_Electronics",
 	"A3_Structures_F_Kart_Civ_SportsGrounds",
 	"A3_Structures_F_EPB_Items_Vessels",
@@ -152,13 +154,14 @@ addons[]=
 	"ace_compat_rhs_afrf3_nightvision",
 	"UK3CB_Factions_TKA_O",
 	"ace_compat_rhs_afrf3_explosives",
+	"UK3CB_Factions_ADA_B",
 	"A3_Modules_F_Curator_Curator"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=72;
+		items=74;
 		class Item0
 		{
 			className="A3_Structures_F_Tank";
@@ -594,61 +597,75 @@ class AddonsMetaData
 		};
 		class Item63
 		{
+			className="ace_rearm";
+			name="ACE3 - Rearm";
+			author="ACE-Team";
+			url="https://ace3.acemod.org/";
+		};
+		class Item64
+		{
 			className="A3_Structures_F_Bootcamp";
 			name="Arma 3 Bootcamp Update - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item64
+		class Item65
 		{
 			className="A3_Structures_F_Kart";
 			name="Arma 3 Karts - Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item65
+		class Item66
 		{
 			className="A3_Soft_F";
 			name="Arma 3 Alpha - Unarmored Land Vehicles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item66
+		class Item67
 		{
 			className="A3_Signs_F";
 			name="Arma 3 - Signs";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item67
+		class Item68
 		{
 			className="ace_interaction";
 			name="ACE3 - Interaction";
 			author="ACE-Team";
 			url="https://ace3.acemod.org/";
 		};
-		class Item68
+		class Item69
 		{
 			className="ace_field_rations";
 			name="ACE3 - Field Rations";
 			author="ACE-Team";
 			url="https://ace3.acemod.org/";
 		};
-		class Item69
+		class Item70
 		{
 			className="ace_compat_rhs_afrf3_nightvision";
 			name="ACE3 - RHS AFRF Compatibility";
 			author="ACE-Team";
 			url="https://ace3.acemod.org/";
 		};
-		class Item70
+		class Item71
 		{
 			className="ace_compat_rhs_afrf3_explosives";
 			name="ACE3 - RHS AFRF Compatibility - Explosives";
 			author="ACE-Team";
 			url="https://ace3.acemod.org/";
 		};
-		class Item71
+		class Item72
+		{
+			className="UK3CB_Factions_ADA";
+			name="3CB Factions - ADA";
+			author="3 Commando Brigade";
+			url="www.3commandobrigade.com";
+		};
+		class Item73
 		{
 			className="A3_Modules_F_Curator";
 			name="Arma 3 Zeus Update - Scripted Modules";
@@ -712,10 +729,23 @@ class CustomAttributes
 		};
 		nAttributes=1;
 	};
-	class Category1
+	class Category2
 	{
 		name="Multiplayer";
 		class Attribute0
+		{
+			property="ENH_saveLoadout";
+			expression="if (!isMultiplayer || !_value || is3DEN || !hasInterface) exitWith {};        0 spawn        {            waitUntil {sleep 1; !isNull player};            player setVariable ['ENH_savedLoadout', getUnitloadout player];            player addMPEventHandler ['MPRespawn',            {                params ['_unit'];                private _loadout = _unit getVariable ['ENH_savedLoadout', []];                if (_loadout isNotEqualTo []) then {_unit setUnitLoadout _loadout};            }];        };";
+			class Value
+			{
+				class data
+				{
+					singleType="BOOL";
+					value=1;
+				};
+			};
+		};
+		class Attribute1
 		{
 			property="RespawnTemplates";
 			expression="true";
@@ -739,22 +769,9 @@ class CustomAttributes
 				};
 			};
 		};
-		class Attribute1
-		{
-			property="ENH_saveLoadout";
-			expression="if (!isMultiplayer || !_value || is3DEN || !hasInterface) exitWith {};        0 spawn        {            waitUntil {sleep 1; !isNull player};            player setVariable ['ENH_savedLoadout', getUnitloadout player];            player addMPEventHandler ['MPRespawn',            {                params ['_unit'];                private _loadout = _unit getVariable ['ENH_savedLoadout', []];                if (_loadout isNotEqualTo []) then {_unit setUnitLoadout _loadout};            }];        };";
-			class Value
-			{
-				class data
-				{
-					singleType="BOOL";
-					value=1;
-				};
-			};
-		};
 		nAttributes=2;
 	};
-	class Category2
+	class Category3
 	{
 		name="Scenario";
 		class Attribute0
@@ -11616,7 +11633,7 @@ class Mission
 				};
 			};
 			id=2424;
-			atlOffset=-140.66;
+			atlOffset=-140.20169;
 		};
 		class Item1
 		{
@@ -11625,7 +11642,7 @@ class Mission
 			state=1;
 			class Entities
 			{
-				items=277;
+				items=292;
 				class Item0
 				{
 					dataType="Object";
@@ -17951,7 +17968,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5161;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -19146,7 +19162,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5164;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -21004,7 +21019,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5171;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -22862,7 +22876,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5182;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -23353,7 +23366,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5193;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -23844,7 +23856,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5197;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -24335,7 +24346,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5201;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -24426,6 +24436,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -24442,6 +24461,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -24453,7 +24485,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -24466,7 +24498,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -24479,7 +24511,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -24492,7 +24524,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 						class Item1
@@ -24560,6 +24592,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -24577,6 +24618,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -24588,7 +24642,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -24601,7 +24655,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -24614,7 +24668,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -24627,7 +24681,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -24638,7 +24692,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5205;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -24729,6 +24782,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -24745,6 +24807,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -24756,7 +24831,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -24769,7 +24844,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -24782,7 +24857,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -24795,7 +24870,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 						class Item1
@@ -24863,6 +24938,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -24880,6 +24964,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -24891,7 +24988,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -24904,7 +25001,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -24917,7 +25014,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -24930,7 +25027,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -24941,7 +25038,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5208;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -25032,6 +25128,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -25049,6 +25154,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -25060,7 +25178,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -25073,7 +25191,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -25086,7 +25204,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -25099,7 +25217,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 						class Item1
@@ -25167,6 +25285,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -25184,6 +25311,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -25195,7 +25335,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -25208,7 +25348,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -25221,7 +25361,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -25234,7 +25374,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -25245,7 +25385,7 @@ class Mission
 						formation="FILE";
 					};
 					id=5211;
-					atlOffset=-140.66;
+					atlOffset=1.9073486e-06;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -25322,6 +25462,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									class backpack
 									{
@@ -25343,6 +25492,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -25354,7 +25516,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -25367,7 +25529,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -25380,7 +25542,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -25393,7 +25555,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -25404,7 +25566,7 @@ class Mission
 						formation="FILE";
 					};
 					id=5214;
-					atlOffset=-140.66;
+					atlOffset=1.9073486e-06;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -25481,6 +25643,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									class backpack
 									{
@@ -25502,6 +25673,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -25513,7 +25697,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -25526,7 +25710,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -25539,7 +25723,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -25552,7 +25736,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -25563,7 +25747,7 @@ class Mission
 						formation="FILE";
 					};
 					id=5216;
-					atlOffset=-140.66;
+					atlOffset=1.9073486e-06;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -25582,9 +25766,456 @@ class Mission
 						nAttributes=1;
 					};
 				};
+				class Item277
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11911.773,24.510963,2457.6584};
+						angles[]={0,4.7576804,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5325;
+					type="FlexibleTank_01_forest_F";
+					atlOffset=3.8146973e-06;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item278
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11973.87,24.399132,2421.5515};
+						angles[]={0.012732903,3.2373412,6.282495};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5328;
+					type="FlexibleTank_01_forest_F";
+					atlOffset=1.9073486e-06;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item279
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11911.195,24.800581,2406.5608};
+						angles[]={0.0009134906,1.5635706,0.00084572798};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5323;
+					type="Box_NATO_AmmoVeh_F";
+					atlOffset=-3.8146973e-06;
+				};
+				class Item280
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11911.783,24.787909,2456.0737};
+						angles[]={0,1.5635706,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5326;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item281
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11975.467,24.675623,2421.4922};
+						angles[]={0.012732903,0.043244004,6.282495};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5329;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item282
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11911.124,24.703259,2409.3704};
+						angles[]={0.0016914561,3.1427794,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5318;
+					type="Land_WeldingTrolley_01_F";
+					atlOffset=-1.9073486e-06;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item283
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11911.712,24.693598,2458.8833};
+						angles[]={0,3.1427794,-0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5324;
+					type="Land_WeldingTrolley_01_F";
+					atlOffset=3.8146973e-06;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item284
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11972.647,24.582685,2421.553};
+						angles[]={0.012732903,1.6224402,6.282495};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5327;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item285
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11911.186,24.522163,2408.1455};
+						angles[]={0.0009134906,4.7576804,0.00084572798};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5321;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item286
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11921.665,23.448254,2517.4348};
+						angles[]={0.0020132356,3.1616955,6.2811427};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5336;
+					type="FlexibleTank_01_forest_F";
+					atlOffset=1.9073486e-06;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item287
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11880.896,23.646925,2518.7539};
+						angles[]={0,3.1616955,-0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5339;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item288
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11923.252,23.72303,2517.4851};
+						angles[]={0.00034526698,6.2507749,6.2828403};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5337;
+					type="Box_NATO_AmmoVeh_F";
+					atlOffset=1.9073486e-06;
+				};
+				class Item289
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11882.483,23.923773,2518.8042};
+						angles[]={0,6.2507749,-0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5340;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item290
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11920.444,23.63361,2517.3425};
+						angles[]={0.0020132356,1.5467942,6.2811427};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5335;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item291
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={11879.676,23.829662,2518.6616};
+						angles[]={0,1.5467942,-0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5338;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
 			};
 			id=2537;
-			atlOffset=-140.66;
+			atlOffset=-0.061061859;
 		};
 		class Item2
 		{
@@ -25593,14 +26224,14 @@ class Mission
 			state=1;
 			class Entities
 			{
-				items=581;
+				items=596;
 				class Item0
 				{
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12081.199,342.5932,17879.238};
-						angles[]={0,2.2321365,0};
+						position[]={12079.17,342.5932,17876.904};
+						angles[]={-0,2.2321365,0};
 					};
 					side="Empty";
 					flags=4;
@@ -25725,8 +26356,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12082.275,342.55704,17880.621};
-						angles[]={0,2.2321365,0};
+						position[]={12080.246,342.55704,17878.287};
+						angles[]={-0,2.2321365,0};
 					};
 					side="Empty";
 					flags=4;
@@ -26474,8 +27105,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12030.632,342.33569,17850.541};
-						angles[]={0,1.953948,0};
+						position[]={12029.597,342.33569,17851.27};
+						angles[]={-0,1.953948,0};
 					};
 					side="Empty";
 					flags=4;
@@ -26492,8 +27123,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12028.634,342.33569,17852.043};
-						angles[]={0,1.4303493,0};
+						position[]={12027.599,342.33569,17852.771};
+						angles[]={-0,1.4303493,0};
 					};
 					side="Empty";
 					flags=4;
@@ -26510,8 +27141,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12030.183,342.33569,17851.191};
-						angles[]={0,2.2157474,0};
+						position[]={12029.147,342.33569,17851.92};
+						angles[]={-0,2.2157474,0};
 					};
 					side="Empty";
 					flags=4;
@@ -26528,8 +27159,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12027.835,342.33569,17852.645};
-						angles[]={0,4.3101425,0};
+						position[]={12026.8,342.33569,17853.373};
+						angles[]={-0,4.3101425,0};
 					};
 					side="Empty";
 					flags=4;
@@ -28016,8 +28647,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12079.665,342.01855,17880.115};
-						angles[]={0,1.1849388,0};
+						position[]={12077.636,342.01855,17877.781};
+						angles[]={-0,1.1849388,0};
 					};
 					side="Empty";
 					flags=4;
@@ -28034,8 +28665,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12079.987,342.01855,17879.373};
-						angles[]={0,5.1119299,0};
+						position[]={12077.958,342.01855,17877.039};
+						angles[]={-0,5.1119299,0};
 					};
 					side="Empty";
 					flags=4;
@@ -28590,8 +29221,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12080.828,342.34079,17880.797};
-						angles[]={0,2.2321365,0};
+						position[]={12078.799,342.34079,17878.463};
+						angles[]={-0,2.2321365,0};
 					};
 					side="Empty";
 					flags=4;
@@ -33104,8 +33735,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12047.76,342.32968,17946.6};
-						angles[]={0,3.5535622,0};
+						position[]={12051.359,342.32968,17950.24};
+						angles[]={-0,3.5535622,0};
 					};
 					side="Empty";
 					flags=4;
@@ -33122,8 +33753,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12049.318,342.32968,17948.553};
-						angles[]={0,3.029963,0};
+						position[]={12052.918,342.32968,17952.193};
+						angles[]={-0,3.029963,0};
 					};
 					side="Empty";
 					flags=4;
@@ -33140,8 +33771,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12048.423,342.32968,17947.027};
-						angles[]={0,3.8153615,0};
+						position[]={12052.022,342.32968,17950.668};
+						angles[]={-0,3.8153615,0};
 					};
 					side="Empty";
 					flags=4;
@@ -33158,8 +33789,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={12049.943,342.32968,17949.334};
-						angles[]={0,5.9097562,0};
+						position[]={12053.543,342.32968,17952.975};
+						angles[]={-0,5.9097562,0};
 					};
 					side="Empty";
 					flags=4;
@@ -37325,7 +37956,7 @@ class Mission
 						formation="FILE";
 					};
 					id=5260;
-					atlOffset=-140.66;
+					atlOffset=3.0517578e-05;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -38470,7 +39101,7 @@ class Mission
 						formation="FILE";
 					};
 					id=5263;
-					atlOffset=-140.66;
+					atlOffset=3.0517578e-05;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -40262,7 +40893,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5270;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -42053,7 +42683,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5281;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -42552,7 +43181,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5292;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -43050,7 +43678,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5296;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -43548,7 +44175,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5300;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -43652,6 +44278,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -43668,6 +44303,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -43679,7 +44327,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -43692,7 +44340,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -43705,7 +44353,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -43718,7 +44366,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 						class Item1
@@ -43799,6 +44447,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -43815,6 +44472,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -43826,7 +44496,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -43839,7 +44509,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -43852,7 +44522,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -43865,7 +44535,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -43876,7 +44546,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5304;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -43980,6 +44649,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -43996,6 +44674,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -44007,7 +44698,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -44020,7 +44711,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -44033,7 +44724,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -44046,7 +44737,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 						class Item1
@@ -44127,6 +44818,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -44143,6 +44843,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -44154,7 +44867,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -44167,7 +44880,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -44180,7 +44893,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -44193,7 +44906,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -44204,7 +44917,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5307;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -44308,6 +45020,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -44324,6 +45045,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -44335,7 +45069,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -44348,7 +45082,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -44361,7 +45095,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -44374,7 +45108,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 						class Item1
@@ -44455,6 +45189,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									map="ItemMap";
 									compass="ItemCompass";
@@ -44471,6 +45214,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -44482,7 +45238,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -44495,7 +45251,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -44508,7 +45264,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -44521,7 +45277,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -44532,7 +45288,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5310;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -44605,7 +45360,7 @@ class Mission
 									};
 									class vest
 									{
-										typeName="V_TacVest_khk";
+										typeName="UK3CB_ADA_B_V_TacVest_KHK";
 										isBackpack=0;
 										class MagazineCargo
 										{
@@ -44635,6 +45390,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									class backpack
 									{
@@ -44656,6 +45420,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -44667,7 +45444,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -44680,7 +45457,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -44693,7 +45470,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -44706,7 +45483,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -44717,7 +45494,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5313;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -44790,7 +45566,7 @@ class Mission
 									};
 									class vest
 									{
-										typeName="V_TacVest_khk";
+										typeName="UK3CB_ADA_B_V_TacVest_KHK";
 										isBackpack=0;
 										class MagazineCargo
 										{
@@ -44820,6 +45596,15 @@ class Mission
 												ammoLeft=1;
 											};
 										};
+										class ItemCargo
+										{
+											items=1;
+											class Item0
+											{
+												name="ToolKit";
+												count=1;
+											};
+										};
 									};
 									class backpack
 									{
@@ -44841,6 +45626,19 @@ class Mission
 							{
 								class Attribute0
 								{
+									property="ace_isEngineer";
+									expression="if !(_value == ([0, 1] select (_this getUnitTrait 'engineer')) || {_value == -1}) then {_this setVariable ['ace_isEngineer', _value, true]}";
+									class Value
+									{
+										class data
+										{
+											singleType="SCALAR";
+											value=1;
+										};
+									};
+								};
+								class Attribute1
+								{
 									property="speaker";
 									expression="_this setspeaker _value;";
 									class Value
@@ -44852,7 +45650,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute1
+								class Attribute2
 								{
 									property="pitch";
 									expression="_this setpitch _value;";
@@ -44865,7 +45663,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute2
+								class Attribute3
 								{
 									property="TFAR_freq_sr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; } else { _value = [str _value,8,512,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_sr',_value,true]; }";
@@ -44878,7 +45676,7 @@ class Mission
 										};
 									};
 								};
-								class Attribute3
+								class Attribute4
 								{
 									property="TFAR_freq_lr";
 									expression="if (_value isEqualTo '' || _value isEqualTo []) exitWith {}; if (_value isEqualType '') then { _value = [_value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; } else { _value = [str _value,9,87,30,10] call tfar_fnc_parseFrequenciesInput; _this setVariable ['TFAR_freq_lr',_value,true]; }";
@@ -44891,7 +45689,7 @@ class Mission
 										};
 									};
 								};
-								nAttributes=4;
+								nAttributes=5;
 							};
 						};
 					};
@@ -44902,7 +45700,6 @@ class Mission
 						formation="FILE";
 					};
 					id=5315;
-					atlOffset=-140.66;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -44921,9 +45718,449 @@ class Mission
 						nAttributes=1;
 					};
 				};
+				class Item581
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12046.839,342.63947,17945.27};
+						angles[]={-0,0.66632605,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5341;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item582
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12047.543,342.45682,17946.268};
+						angles[]={-0,2.2812274,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5342;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item583
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12048.519,342.7337,17947.525};
+						angles[]={-0,5.370307,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5343;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item584
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12083.765,342.64557,17882.674};
+						angles[]={-0,3.7923417,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5347;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item585
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12083.076,342.46289,17881.664};
+						angles[]={-0,5.4072428,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5348;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item586
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12082.12,342.73981,17880.393};
+						angles[]={-0,2.2131369,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5349;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item587
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12033.581,342.64557,17847.898};
+						angles[]={-0,5.3995905,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5353;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item588
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12032.599,342.46289,17848.623};
+						angles[]={-0,0.73130614,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5354;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item589
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12031.361,342.73981,17849.625};
+						angles[]={-0,3.8203862,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5355;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item590
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12151.523,343.0137,17875.51};
+						angles[]={-0,0.66632605,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5356;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item591
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12152.228,342.83102,17876.508};
+						angles[]={-0,2.2812274,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5357;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item592
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12153.203,343.10794,17877.766};
+						angles[]={-0,5.370307,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5358;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item593
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12192.438,343.10794,17927.996};
+						angles[]={-0,5.370307,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 2, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5359;
+					type="Box_NATO_AmmoVeh_F";
+				};
+				class Item594
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12190.758,343.0137,17925.74};
+						angles[]={-0,0.66632605,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 90, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5360;
+					type="Land_WeldingTrolley_01_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_isRepairFacility";
+							expression="if (_value != (if (isNumber (configOf _this >> ""ace_repair_canRepair"")) then {getNumber (configOf _this >> ""ace_repair_canRepair"")} else {(parseNumber (getRepairCargo _this > 0))})) then {_this setVariable ['ace_isRepairFacility', _value, true]}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=1;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
+				class Item595
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={12191.462,342.83102,17926.738};
+						angles[]={-0,2.2812274,0};
+					};
+					side="Empty";
+					flags=4;
+					class Attributes
+					{
+						init="[this, true, [0, 1.5, 0], 0, true, true] call ace_dragging_fnc_setCarryable;";
+						dynamicSimulation=1;
+					};
+					id=5361;
+					type="FlexibleTank_01_forest_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="ace_refuel_fuelCargo";
+							expression="if (_value != (_this call ace_refuel_fnc_getFuelCargo)) then {[_this, _value] call ace_refuel_fnc_makeSource}";
+							class Value
+							{
+								class data
+								{
+									singleType="SCALAR";
+									value=-10;
+								};
+							};
+						};
+						nAttributes=1;
+					};
+				};
 			};
 			id=2754;
-			atlOffset=-140.66;
+			atlOffset=0.36236572;
 		};
 		class Item3
 		{
